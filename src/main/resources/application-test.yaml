@@ -1,0 +1,32 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: PaperTrade
+  datasource:
+    url: 'jdbc:h2:file:./db'
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+
+telegram:
+  alarmOnError: false
+  bot:
+    username: 'http://t.me/paper_trade_bot'
+    token: '6570220002:AAGxwPP-vUFhG_-j206077Lmwx2B6sY2HXA'
+    chatID: '-925443683'
+rsa:
+  publicKey: classpath:certs/public.pem
+  privateKey: classpath:certs/private.pem
+jwt:
+  accessTokenExpiresIn: 600000 # ten minutes
+  refreshTokenExpiresIn: 172800000 #two days
+### BEGIN CORS CONFIG ###
+cors:
+  allowedHeaders: [ "Accept", "Accept-Language", "Origin", "Content-Language", "Content-Type", "X-Requested-With", "Authorization" ]
+  allowedOrigins: [ "*" ]
+  allowedMethods: [ "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD" ]
+  allowCredentials: false
+  exposedHeaders: [ "X-Total-Count", "Content-Disposition" ]
+  urlPattern: "/**"
+### END CORS CONFIG ###
