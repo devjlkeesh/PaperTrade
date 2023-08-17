@@ -11,4 +11,5 @@ public final class ErrorCode {
     public static final String INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR ";
     public static final String NOT_FOUND = "NOT_FOUND";
     public static final String AUTH_UNAUTHORIZED = "AUTH_UNAUTHORIZED";
+    public static final String AUTH_BAD_CREDENTIALS = "AUTH_BAD_CREDENTIALS";
 }

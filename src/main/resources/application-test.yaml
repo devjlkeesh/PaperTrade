@@ -4,10 +4,18 @@ spring:
   application:
     name: PaperTrade
   datasource:
-    url: 'jdbc:h2:file:./db'
-    username: sa
-    password: sa
-    driver-class-name: org.h2.Driver
+    url: 'jdbc:postgresql://localhost:5432/paper'
+    username: postgres
+    password: 123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
 
 telegram:
   alarmOnError: false
@@ -21,6 +29,7 @@ rsa:
 jwt:
   accessTokenExpiresIn: 600000 # ten minutes
   refreshTokenExpiresIn: 172800000 #two days
+
 ### BEGIN CORS CONFIG ###
 cors:
   allowedHeaders: [ "Accept", "Accept-Language", "Origin", "Content-Language", "Content-Type", "X-Requested-With", "Authorization" ]
@@ -29,4 +38,7 @@ cors:
   allowCredentials: false
   exposedHeaders: [ "X-Total-Count", "Content-Disposition" ]
   urlPattern: "/**"
+logging:
+  level:
+    org.zalando.logbook: trace
 ### END CORS CONFIG ###

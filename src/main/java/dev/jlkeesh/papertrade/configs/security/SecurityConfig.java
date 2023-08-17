@@ -2,16 +2,22 @@ package dev.jlkeesh.papertrade.configs.security;
 
 import dev.jlkeesh.papertrade.configs.security.filter.AuthenticationFilter;
 import dev.jlkeesh.papertrade.property.CorsProperty;
+import dev.jlkeesh.papertrade.repository.AuthUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -39,6 +45,8 @@ import java.io.PrintWriter;
         securedEnabled = true
 )
 public class SecurityConfig {
+    private final CorsProperty corsProperty;
+    private final AuthenticationFilter authenticationFilter;
 
     private static final String[] WHITE_LIST = {
             "/swagger-ui.html",
@@ -47,15 +55,12 @@ public class SecurityConfig {
             "/v3/api-docs/swagger-config",
             "/actuator/health",
             "/actuator/health/**",
-            "/api/paper-trade/auth/login"
+            "/api/auth/get-token"
     };
-
-    private final CorsProperty corsProperty;
-    private final AuthenticationFilter authenticationFilter;
 
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -63,12 +68,12 @@ public class SecurityConfig {
                         .requestMatchers(WHITE_LIST)
                         .permitAll()
                         .anyRequest()
-                        .authenticated())
+                        .fullyAuthenticated())
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionConfig -> exceptionConfig
-                                .accessDeniedHandler(getAccessDeniedHandler())
-                                .authenticationEntryPoint(getAuthenticationEntryPoint()))
+                        .accessDeniedHandler(getAccessDeniedHandler())
+                        .authenticationEntryPoint(getAuthenticationEntryPoint()))
                 .build();
     }
 
@@ -76,6 +81,7 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         return username -> null;
     }
+
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {

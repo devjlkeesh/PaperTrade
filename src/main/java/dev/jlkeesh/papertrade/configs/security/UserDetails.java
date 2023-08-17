@@ -1,9 +1,12 @@
 package dev.jlkeesh.papertrade.configs.security;
 
+import dev.jlkeesh.papertrade.domains.auth.AuthRole;
+import dev.jlkeesh.papertrade.domains.auth.AuthUser;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * @author : Elmurodov Javohir
@@ -12,41 +15,48 @@ import java.util.Collection;
 @Getter
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
 
-    private String userId;
+    private final Long userId;
     private final AuthUser user;
+
+    public UserDetails(AuthUser user) {
+        this.user = user;
+        this.userId = user.getId();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        if (user.getRoles().isEmpty())
+            return Collections.emptyList();
+        return user.getRoles().stream().map(AuthRole::getAuthority).toList();
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return user.getUsername();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

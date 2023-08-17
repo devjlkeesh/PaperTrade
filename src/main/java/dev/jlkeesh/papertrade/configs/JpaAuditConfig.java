@@ -1,11 +1,11 @@
 package dev.jlkeesh.papertrade.configs;
 
+import dev.jlkeesh.papertrade.configs.security.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import uz.yt.ramsservice.configs.security.CurrentUser;
 
 import java.util.Optional;
 
@@ -22,7 +22,7 @@ public class JpaAuditConfig {
     private final CurrentUser currentUser;
 
     @Bean
-    public AuditorAware<Object> auditorAware() {
+    public AuditorAware<Long> auditorAware() {
         return () -> Optional.of(currentUser.userID());
     }
 

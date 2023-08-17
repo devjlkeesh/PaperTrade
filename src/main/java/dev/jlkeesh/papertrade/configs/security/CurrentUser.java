@@ -5,24 +5,10 @@ import dev.jlkeesh.papertrade.exceptions.AccessDeniedException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.bouncycastle.cert.X509CertificateHolder;
-import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import uz.yt.ramsservice.dtos.main.auth.CurrentUserDetailsDto;
-import uz.yt.ramsservice.dtos.main.key.CertificateInfoLocal;
-import uz.yt.ramsservice.enums.ErrorCode;
-import uz.yt.ramsservice.exceptions.AccessDeniedException;
-import uz.yt.ramsservice.exceptions.BadRequestException;
-
-import java.io.IOException;
-import java.security.Provider;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.List;
 
 @Slf4j
 @Component
@@ -31,9 +17,8 @@ public class CurrentUser {
 
     private final HttpServletRequest request;
 
-
-    public Object userID() {
-        return getUser().getId();
+    public Long userID() {
+        return getUser().getUserId();
     }
 
     public String getLang() {
@@ -41,17 +26,16 @@ public class CurrentUser {
     }
 
 
-    public Object getUser() {
+    public UserDetails getUser() {
         var securityContext = checkContext();
         var authentication = checkAuthentication(securityContext);
         return checkPrincipal(authentication);
     }
 
 
-    private Object checkPrincipal(Authentication authentication) {
+    private UserDetails checkPrincipal(Authentication authentication) {
         var principal = authentication.getPrincipal();
-        if (principal instanceof UserDetails)
-            return principal;
+        if (principal instanceof UserDetails o) return o;
         throw new AccessDeniedException(ErrorCode.AUTH_UNAUTHORIZED);
     }
 

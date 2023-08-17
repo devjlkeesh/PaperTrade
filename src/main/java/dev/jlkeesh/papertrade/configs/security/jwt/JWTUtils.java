@@ -9,6 +9,7 @@ import dev.jlkeesh.papertrade.exceptions.AuthorizedException;
 import jakarta.validation.constraints.NotNull;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jose4j.jwa.AlgorithmConstraints;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
@@ -24,39 +25,43 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JWTUtils {
     private final RSAKeyPairs keyPairs;
     private final Environment env;
 
-    public TokenDto generateToken(@NonNull String serialNumber, @NonNull Type type) throws JoseException {
-        long expiresAt = System.currentTimeMillis() + getTokenExpiryTimeInMillisecondsByTokenType(type);
+    public TokenDto generateToken(Long id, Type type) {
+        try {
+            long expiresAt = System.currentTimeMillis() + getTokenExpiryTimeInMillisecondsByTokenType(type);
+            JwtClaims jwtClaims = new JwtClaims();
+            jwtClaims.setIssuer("not_specified");
+            jwtClaims.setAudience("not_specified");
+            jwtClaims.setExpirationTime(NumericDate.fromMilliseconds(expiresAt));
+            jwtClaims.setGeneratedJwtId();
+            jwtClaims.setIssuedAtToNow();
+            jwtClaims.setSubject(String.valueOf(id));
+            jwtClaims.setClaim("type", type);
 
-        JwtClaims jwtClaims = new JwtClaims();
-        jwtClaims.setIssuer("yt.uz");
-        jwtClaims.setAudience("yt.uz");
-        jwtClaims.setExpirationTime(NumericDate.fromMilliseconds(expiresAt));
-        jwtClaims.setGeneratedJwtId();
-        jwtClaims.setIssuedAtToNow();
-        jwtClaims.setSubject(serialNumber);
-        jwtClaims.setClaim("type", type);
+            JsonWebSignature jws = new JsonWebSignature();
+            jws.setPayload(jwtClaims.toJson());
+            jws.setKey(keyPairs.privateKey());
+            jws.setKeyIdHeaderValue(UUID.randomUUID().toString());
+            jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA256);
 
-        JsonWebSignature jws = new JsonWebSignature();
-        jws.setPayload(jwtClaims.toJson());
-        jws.setKey(keyPairs.privateKey());
-        jws.setKeyIdHeaderValue(UUID.randomUUID().toString());
-        jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA256);
-
-        return new TokenDto(jws.getCompactSerialization(), expiresAt);
+            return new TokenDto(jws.getCompactSerialization(), expiresAt);
+        } catch (JoseException e) {
+            log.error("JoseException : {}", e.getMessage(), e);
+            throw new AuthorizedException(ErrorCode.AUTH_BAD_CREDENTIALS);
+        }
     }
 
-    public Tuple2<String, Type> validateAndGetSubjectAndTokenType(@NonNull String token) {
+    public Tuple2<Long, Type> validateAndGetSubjectAndTokenType(@NonNull String token) {
         try {
             JwtConsumer jwtConsumer = buildJwtConsumer();
             JwtClaims jwtClaims = jwtConsumer.processToClaims(token);
-            String subject = jwtClaims.getSubject();
+            Long subject = Long.parseLong(jwtClaims.getSubject());
             String type = jwtClaims.getClaimValue("type", String.class);
             return new Tuple2<>(subject, Type.valueOf(type));
         } catch (InvalidJwtException | MalformedClaimException e) {
@@ -68,8 +73,8 @@ public class JWTUtils {
         return new JwtConsumerBuilder()
                 .setRequireExpirationTime()
                 .setRequireSubject()
-                .setExpectedIssuer("yt.uz")
-                .setExpectedAudience("yt.uz")
+                .setExpectedIssuer("not_specified")
+                .setExpectedAudience("not_specified")
                 .setVerificationKey(keyPairs.publicKey())
                 .setJwsAlgorithmConstraints(AlgorithmConstraints.ConstraintType.PERMIT, AlgorithmIdentifiers.RSA_USING_SHA256)
                 .build();

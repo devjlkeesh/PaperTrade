@@ -21,6 +21,7 @@ public class LogbookConfig {
                         requestTo("/v3/api-docs/swagger-config"),
                         requestTo("/swagger-ui.html"),
                         requestTo("/swagger-ui/**"),
+                        requestTo("/api/auth/**"),
                         contentType("application/octet-stream")
                         /*header("X-Secret", newHashSet("1", "true")::contains)*/))
                 .build();

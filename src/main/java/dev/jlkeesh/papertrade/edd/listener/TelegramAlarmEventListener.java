@@ -24,7 +24,7 @@ public class TelegramAlarmEventListener {
     @Async
     @EventListener(TelegramAlarmEvent.class)
     public void listen(TelegramAlarmEvent e) {
-        telegramUtil.sendMessage(e.message());
+        telegramUtil.sendMessage(String.valueOf(e.message()));
     }
 
 }

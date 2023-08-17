@@ -1,7 +1,10 @@
 package dev.jlkeesh.papertrade.configs.security.filter;
 
+import dev.jlkeesh.papertrade.configs.security.UserDetails;
 import dev.jlkeesh.papertrade.configs.security.jwt.JWTUtils;
+import dev.jlkeesh.papertrade.domains.auth.AuthUser;
 import dev.jlkeesh.papertrade.enums.Type;
+import dev.jlkeesh.papertrade.service.auth.AuthUserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,8 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -31,6 +32,7 @@ import java.util.Objects;
 public class AuthenticationFilter extends OncePerRequestFilter {
 
     private final JWTUtils jwtUtils;
+    private final AuthUserService authUserService;
 
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
@@ -52,8 +54,8 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     public void doFilter(String token) {
         final var dto = jwtUtils.validateAndGetSubjectAndTokenType(token);
         if (Objects.nonNull(dto) && Type.ACCESS.equals(dto.t2())) {
-            String userId = dto.t1();
-            UserDetails userDetails = User.builder().username("john").password("123").roles("ADMIN").build(); // TODO: 15/08/23 call redis here
+            AuthUser authUser = authUserService.loadUserById(dto.t1());
+            UserDetails userDetails = new UserDetails(authUser);
             var authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
