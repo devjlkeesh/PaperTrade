@@ -3,6 +3,7 @@ package dev.jlkeesh.papertrade.domains.auth;
 import dev.jlkeesh.papertrade.domains.Auditable;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,9 @@ import java.util.List;
 @Setter
 public class AuthUser extends Auditable {
 
+    @Column(nullable = false, name = "fullname")
+    private String fullName;
+
     @Column(nullable = false)
     private String username;
 
@@ -27,11 +31,16 @@ public class AuthUser extends Auditable {
     @Column(nullable = false)
     private String phone;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<AuthRole> roles;
 
     private LocalDateTime lastLoginAt;
 
     private LocalDateTime lastActionedAt;
 
+    public void addRoles(@NonNull List<AuthRole> authRoles) {
+        if (this.roles == null)
+            this.roles = authRoles;
+        this.roles.addAll(authRoles);
+    }
 }

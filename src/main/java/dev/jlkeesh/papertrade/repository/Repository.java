@@ -2,7 +2,7 @@ package dev.jlkeesh.papertrade.repository;
 
 /**
  * @author : Elmurodov Javohir
- * @since : 15/08/23 / 20:14
+ * @since : 02/06/23 / 16:27
  */
 public interface Repository {
 }

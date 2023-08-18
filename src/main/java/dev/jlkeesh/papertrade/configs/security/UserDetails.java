@@ -1,5 +1,6 @@
 package dev.jlkeesh.papertrade.configs.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.jlkeesh.papertrade.domains.auth.AuthRole;
 import dev.jlkeesh.papertrade.domains.auth.AuthUser;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return user.getPassword();
     }

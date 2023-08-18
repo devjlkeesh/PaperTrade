@@ -4,13 +4,12 @@ import dev.jlkeesh.papertrade.domains.auth.AuthRole;
 import dev.jlkeesh.papertrade.domains.auth.AuthUser;
 import dev.jlkeesh.papertrade.property.CorsProperty;
 import dev.jlkeesh.papertrade.property.RSAKeyPairs;
-import dev.jlkeesh.papertrade.repository.AuthRoleRepository;
-import dev.jlkeesh.papertrade.repository.AuthUserRepository;
+import dev.jlkeesh.papertrade.repository.auth.AuthRoleRepository;
+import dev.jlkeesh.papertrade.repository.auth.AuthUserRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;

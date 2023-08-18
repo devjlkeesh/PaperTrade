@@ -2,7 +2,7 @@ package dev.jlkeesh.papertrade.mapper;
 
 /**
  * @author : Elmurodov Javohir
- * @since : 15/08/23 / 20:13
+ * @since : 01/06/23 / 09:40
  */
-public interface Mapper {
+public interface GenericMapper {
 }

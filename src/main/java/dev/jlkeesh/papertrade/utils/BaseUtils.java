@@ -1,8 +1,11 @@
 package dev.jlkeesh.papertrade.utils;
 
+import org.springframework.util.StringUtils;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.regex.Pattern;
+
 
 public final class BaseUtils {
 
@@ -18,4 +21,21 @@ public final class BaseUtils {
         throwable.printStackTrace(pw);
         return sw.getBuffer().toString();
     }
+
+    public static boolean isEmpty(Object o) {
+        return o == null;
+    }
+
+    public static boolean isNotEmpty(Object o) {
+        return !isEmpty(o);
+    }
+
+    public static boolean isEmpty(String o) {
+        return !isNotEmpty(o);
+    }
+
+    public static boolean isNotEmpty(String o) {
+        return StringUtils.hasText(o);
+    }
+
 }

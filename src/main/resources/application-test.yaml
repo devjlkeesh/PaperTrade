@@ -27,7 +27,7 @@ rsa:
   publicKey: classpath:certs/public.pem
   privateKey: classpath:certs/private.pem
 jwt:
-  accessTokenExpiresIn: 600000 # ten minutes
+  accessTokenExpiresIn: 60000000000 # ten minutes
   refreshTokenExpiresIn: 172800000 #two days
 
 ### BEGIN CORS CONFIG ###
