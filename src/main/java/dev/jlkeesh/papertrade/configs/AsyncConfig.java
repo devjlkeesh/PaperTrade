@@ -28,7 +28,7 @@ public class AsyncConfig implements org.springframework.scheduling.annotation.As
         taskExecutor.setMaxPoolSize(20);
         taskExecutor.setKeepAliveSeconds(30);
         taskExecutor.setQueueCapacity(100);
-        taskExecutor.setThreadNamePrefix("rams-");
+        taskExecutor.setThreadNamePrefix("paper-");
         taskExecutor.initialize();
         return taskExecutor;
     }
