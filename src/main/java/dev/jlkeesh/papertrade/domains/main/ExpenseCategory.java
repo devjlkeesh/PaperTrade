@@ -1,7 +1,6 @@
 package dev.jlkeesh.papertrade.domains.main;
 
 import dev.jlkeesh.papertrade.domains.Auditable;
-import dev.jlkeesh.papertrade.enums.State;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

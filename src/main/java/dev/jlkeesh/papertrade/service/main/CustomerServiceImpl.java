@@ -13,7 +13,7 @@ import dev.jlkeesh.papertrade.exceptions.BadRequestException;
 import dev.jlkeesh.papertrade.exceptions.ResourceNotFoundException;
 import dev.jlkeesh.papertrade.mapper.CustomerMapper;
 import dev.jlkeesh.papertrade.repository.main.CustomerRepository;
-import dev.jlkeesh.papertrade.repository.reference.RegionRepositoryImpl;
+import dev.jlkeesh.papertrade.repository.reference.RegionRepository;
 import dev.jlkeesh.papertrade.service.AbstractService;
 import lombok.NonNull;
 import org.springframework.http.HttpStatus;
@@ -30,9 +30,9 @@ import java.util.List;
 
 @Service
 public class CustomerServiceImpl extends AbstractService<CustomerRepository, CustomerMapper> implements CustomerService {
-    private final RegionRepositoryImpl regionRepository;
+    private final RegionRepository regionRepository;
 
-    protected CustomerServiceImpl(CustomerRepository repository, CustomerMapper mapper, RegionRepositoryImpl regionRepository) {
+    protected CustomerServiceImpl(CustomerRepository repository, CustomerMapper mapper, RegionRepository regionRepository) {
         super(repository, mapper);
         this.regionRepository = regionRepository;
     }
@@ -75,7 +75,7 @@ public class CustomerServiceImpl extends AbstractService<CustomerRepository, Cus
     public ResponseEntity<Data<Boolean>> update(@NonNull CustomerUpdateDto dto) {
         Customer customer = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
         customer = mapper.partialUpdate(dto, customer);
-        if (dto.regionId()!=null) {
+        if (dto.regionId() != null) {
             Region region = regionRepository.find(dto.regionId()).orElseThrow(ResourceNotFoundException::new);
             customer.setRegion(region);
         }

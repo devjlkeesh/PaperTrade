@@ -29,7 +29,7 @@ public class ExpenseCategoryRepositoryImpl extends GenericDao<ExpenseCategory, L
         }
         if (BaseUtils.isNotEmpty(criteria.getParentId())) {
             whereCause.add("t.parent.id = :parentId");
-            params.put("parentId",  criteria.getParentId());
+            params.put("parentId", criteria.getParentId());
         }
 
         onDefineWhereCause(criteria, whereCause, params, queryBuilder);

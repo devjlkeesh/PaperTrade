@@ -5,8 +5,10 @@ import dev.jlkeesh.papertrade.dto.main.CustomerCreateDto;
 import dev.jlkeesh.papertrade.dto.main.CustomerDto;
 import dev.jlkeesh.papertrade.dto.main.CustomerUpdateDto;
 import dev.jlkeesh.papertrade.mapper.reference.RegionMapper;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {RegionMapper.class})
-public interface CustomerMapper extends BaseMapper<Customer,CustomerDto, CustomerCreateDto, CustomerUpdateDto> {
+public interface CustomerMapper extends BaseMapper<Customer, CustomerDto, CustomerCreateDto, CustomerUpdateDto> {
 }
