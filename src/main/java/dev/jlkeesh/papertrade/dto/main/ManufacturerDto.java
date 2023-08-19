@@ -5,7 +5,6 @@ import dev.jlkeesh.papertrade.dto.Dto;
 import dev.jlkeesh.papertrade.dto.reference.CountryDto;
 import dev.jlkeesh.papertrade.enums.State;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
