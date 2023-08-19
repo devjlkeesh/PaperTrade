@@ -1,7 +1,6 @@
 package dev.jlkeesh.papertrade.service.main;
 
 import dev.jlkeesh.papertrade.criteria.OrderCriteria;
-import dev.jlkeesh.papertrade.domains.main.Consignee;
 import dev.jlkeesh.papertrade.domains.main.Order;
 import dev.jlkeesh.papertrade.dto.main.OrderCreateDto;
 import dev.jlkeesh.papertrade.dto.main.OrderDto;
