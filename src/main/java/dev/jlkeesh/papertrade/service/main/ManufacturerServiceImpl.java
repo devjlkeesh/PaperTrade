@@ -1,6 +1,5 @@
 package dev.jlkeesh.papertrade.service.main;
 
-import dev.jlkeesh.papertrade.criteria.CountryCriteria;
 import dev.jlkeesh.papertrade.criteria.ManufacturerCriteria;
 import dev.jlkeesh.papertrade.domains.main.Manufacturer;
 import dev.jlkeesh.papertrade.domains.reference.Country;

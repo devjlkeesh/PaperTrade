@@ -1,9 +1,9 @@
 package dev.jlkeesh.papertrade.mapper.main;
 
 import dev.jlkeesh.papertrade.domains.main.Manufacturer;
+import dev.jlkeesh.papertrade.dto.main.ManufacturerCreateDto;
 import dev.jlkeesh.papertrade.dto.main.ManufacturerDto;
 import dev.jlkeesh.papertrade.dto.main.ManufacturerUpdateDto;
-import dev.jlkeesh.papertrade.dto.main.ManufacturerCreateDto;
 import dev.jlkeesh.papertrade.mapper.BaseMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
