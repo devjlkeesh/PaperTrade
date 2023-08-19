@@ -32,7 +32,7 @@ public class TreasureReconciliation extends Auditable {
     @Column(nullable = false, columnDefinition = "numeric(20, 2)")
     private Double outSum;
 
-    @OneToOne
+    @ManyToOne(targetEntity = Currency.class, fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "currency_id")
     private Currency currency;
 
