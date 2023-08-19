@@ -1,11 +1,11 @@
 package dev.jlkeesh.papertrade;
 
-import dev.jlkeesh.papertrade.domains.auth.AuthRole;
-import dev.jlkeesh.papertrade.domains.auth.AuthUser;
+import dev.jlkeesh.papertrade.domains.main.auth.AuthRole;
+import dev.jlkeesh.papertrade.domains.main.auth.AuthUser;
 import dev.jlkeesh.papertrade.property.CorsProperty;
 import dev.jlkeesh.papertrade.property.RSAKeyPairs;
-import dev.jlkeesh.papertrade.repository.auth.AuthRoleRepository;
-import dev.jlkeesh.papertrade.repository.auth.AuthUserRepository;
+import dev.jlkeesh.papertrade.repository.main.auth.AuthRoleRepository;
+import dev.jlkeesh.papertrade.repository.main.auth.AuthUserRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,7 +36,7 @@ public class PaperTradeApplication {
         SpringApplication.run(PaperTradeApplication.class, args);
     }
 
-//    @Bean
+    //    @Bean
     ApplicationRunner applicationRunner() {
         return (args) -> {
             AuthRole authRole = new AuthRole();

@@ -1,11 +1,11 @@
 package dev.jlkeesh.papertrade.configs.security.jwt;
 
-import dev.jlkeesh.papertrade.property.RSAKeyPairs;
 import dev.jlkeesh.papertrade.dto.Tuple2;
-import dev.jlkeesh.papertrade.dto.auth.TokenDto;
+import dev.jlkeesh.papertrade.dto.main.auth.TokenDto;
 import dev.jlkeesh.papertrade.enums.ErrorCode;
 import dev.jlkeesh.papertrade.enums.Type;
 import dev.jlkeesh.papertrade.exceptions.AuthorizedException;
+import dev.jlkeesh.papertrade.property.RSAKeyPairs;
 import jakarta.validation.constraints.NotNull;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

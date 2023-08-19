@@ -1,16 +1,16 @@
 package dev.jlkeesh.papertrade.service.auth;
 
 import dev.jlkeesh.papertrade.criteria.AuthRoleCriteria;
-import dev.jlkeesh.papertrade.domains.auth.AuthRole;
-import dev.jlkeesh.papertrade.dto.auth.AuthRoleUpdateDto;
-import dev.jlkeesh.papertrade.dto.auth.AuthRoleCreateDto;
-import dev.jlkeesh.papertrade.dto.auth.AuthRoleDto;
+import dev.jlkeesh.papertrade.domains.main.auth.AuthRole;
+import dev.jlkeesh.papertrade.dto.main.auth.AuthRoleCreateDto;
+import dev.jlkeesh.papertrade.dto.main.auth.AuthRoleDto;
+import dev.jlkeesh.papertrade.dto.main.auth.AuthRoleUpdateDto;
 import dev.jlkeesh.papertrade.dto.response.Data;
 import dev.jlkeesh.papertrade.enums.ErrorCode;
 import dev.jlkeesh.papertrade.exceptions.BadRequestException;
 import dev.jlkeesh.papertrade.exceptions.ResourceNotFoundException;
-import dev.jlkeesh.papertrade.mapper.AuthRoleMapper;
-import dev.jlkeesh.papertrade.repository.auth.AuthRoleRepository;
+import dev.jlkeesh.papertrade.mapper.main.AuthRoleMapper;
+import dev.jlkeesh.papertrade.repository.main.auth.AuthRoleRepository;
 import dev.jlkeesh.papertrade.service.AbstractService;
 import lombok.NonNull;
 import org.springframework.http.HttpStatus;

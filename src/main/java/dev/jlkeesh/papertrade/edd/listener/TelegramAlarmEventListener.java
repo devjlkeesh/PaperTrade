@@ -1,7 +1,7 @@
 package dev.jlkeesh.papertrade.edd.listener;
 
-import dev.jlkeesh.papertrade.utils.TelegramUtil;
 import dev.jlkeesh.papertrade.edd.events.TelegramAlarmEvent;
+import dev.jlkeesh.papertrade.utils.TelegramUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;

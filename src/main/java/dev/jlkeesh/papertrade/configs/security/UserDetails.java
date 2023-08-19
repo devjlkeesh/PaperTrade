@@ -1,8 +1,8 @@
 package dev.jlkeesh.papertrade.configs.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.jlkeesh.papertrade.domains.auth.AuthRole;
-import dev.jlkeesh.papertrade.domains.auth.AuthUser;
+import dev.jlkeesh.papertrade.domains.main.auth.AuthRole;
+import dev.jlkeesh.papertrade.domains.main.auth.AuthUser;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 

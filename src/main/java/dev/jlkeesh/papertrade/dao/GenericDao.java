@@ -2,7 +2,6 @@ package dev.jlkeesh.papertrade.dao;
 
 import dev.jlkeesh.papertrade.criteria.GenericCriteria;
 import dev.jlkeesh.papertrade.domains.BaseDomain;
-import dev.jlkeesh.papertrade.utils.BaseUtils;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceException;
@@ -14,7 +13,6 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformationSuppo
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -82,7 +80,7 @@ public abstract class GenericDao<T extends BaseDomain, ID extends Serializable, 
     public boolean delete(ID id) {
         Assert.notNull(id, "The given id must not be null");
         try {
-            Query query = em.createQuery("update " + persistentClass.getSimpleName() + " t set t.deleted = true where t.deleted = false and t." + idField() + " = " + id);
+            Query query = em.createQuery("update " + persistentClass.getSimpleName() + " t set t.deleted = true where t.deleted = false and t.id = " + id);
             return query.executeUpdate() != 0;
         } catch (PersistenceException ex) {
             log.error("JPA Error : ", ex);
@@ -96,7 +94,7 @@ public abstract class GenericDao<T extends BaseDomain, ID extends Serializable, 
         Assert.notNull(id, "The given id must not be null");
 
         try {
-            return Optional.of(em.createQuery("select t from " + persistentClass.getSimpleName() + " t where t.deleted = false and t." + idField() + " =  " + id, persistentClass)
+            return Optional.of(em.createQuery("select t from " + persistentClass.getSimpleName() + " t where t.deleted = false and t.id =  " + id, persistentClass)
                     .getSingleResult());
         } catch (PersistenceException ex) {
             log.error("JPA Error : ", ex);
@@ -204,9 +202,9 @@ public abstract class GenericDao<T extends BaseDomain, ID extends Serializable, 
         return criteria.getPage() >= 0 && criteria.getSize() > 0;
     }
 
-    private String idField() {
+/*    private String idField() {
         var idAttribute = entityInformation.getIdAttribute();
         return idAttribute == null ? "id" : idAttribute.getName();
-    }
+    }*/
 
 }

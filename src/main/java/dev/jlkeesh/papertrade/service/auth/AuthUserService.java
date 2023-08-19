@@ -2,8 +2,8 @@ package dev.jlkeesh.papertrade.service.auth;
 
 import dev.jlkeesh.papertrade.configs.security.UserDetails;
 import dev.jlkeesh.papertrade.criteria.AuthUserCriteria;
-import dev.jlkeesh.papertrade.domains.auth.AuthUser;
-import dev.jlkeesh.papertrade.dto.auth.*;
+import dev.jlkeesh.papertrade.domains.main.auth.AuthUser;
+import dev.jlkeesh.papertrade.dto.main.auth.*;
 import dev.jlkeesh.papertrade.dto.response.Data;
 import dev.jlkeesh.papertrade.service.GenericCrudService;
 import org.springframework.http.ResponseEntity;

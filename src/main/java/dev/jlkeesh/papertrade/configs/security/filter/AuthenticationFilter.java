@@ -2,7 +2,7 @@ package dev.jlkeesh.papertrade.configs.security.filter;
 
 import dev.jlkeesh.papertrade.configs.security.UserDetails;
 import dev.jlkeesh.papertrade.configs.security.jwt.JWTUtils;
-import dev.jlkeesh.papertrade.domains.auth.AuthUser;
+import dev.jlkeesh.papertrade.domains.main.auth.AuthUser;
 import dev.jlkeesh.papertrade.enums.Type;
 import dev.jlkeesh.papertrade.service.auth.AuthUserService;
 import jakarta.servlet.FilterChain;

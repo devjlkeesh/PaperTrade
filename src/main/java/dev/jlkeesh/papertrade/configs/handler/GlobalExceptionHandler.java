@@ -88,6 +88,7 @@ public class GlobalExceptionHandler {
         eventPublisher.publishEvent(new TelegramAlarmEvent(stackTrace));
         return new ResponseEntity<>(new Data<>(new AppErrorDto(errorPath, errorBody)), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Data<AppErrorDto>> handleException(Exception e, HttpServletRequest request) {
         var errorPath = request.getRequestURI();

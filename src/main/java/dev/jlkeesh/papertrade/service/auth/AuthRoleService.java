@@ -1,9 +1,9 @@
 package dev.jlkeesh.papertrade.service.auth;
 
 import dev.jlkeesh.papertrade.criteria.AuthRoleCriteria;
-import dev.jlkeesh.papertrade.dto.auth.AuthRoleUpdateDto;
-import dev.jlkeesh.papertrade.dto.auth.AuthRoleCreateDto;
-import dev.jlkeesh.papertrade.dto.auth.AuthRoleDto;
+import dev.jlkeesh.papertrade.dto.main.auth.AuthRoleCreateDto;
+import dev.jlkeesh.papertrade.dto.main.auth.AuthRoleDto;
+import dev.jlkeesh.papertrade.dto.main.auth.AuthRoleUpdateDto;
 import dev.jlkeesh.papertrade.service.GenericCrudService;
 
 /**
