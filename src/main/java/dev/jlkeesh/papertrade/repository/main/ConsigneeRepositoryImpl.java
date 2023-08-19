@@ -1,8 +1,8 @@
 package dev.jlkeesh.papertrade.repository.main;
 
-import dev.jlkeesh.papertrade.criteria.TreasureSourceCriteria;
+import dev.jlkeesh.papertrade.criteria.ConsigneeCriteria;
 import dev.jlkeesh.papertrade.dao.GenericDao;
-import dev.jlkeesh.papertrade.domains.main.TreasureSource;
+import dev.jlkeesh.papertrade.domains.main.Consignee;
 import dev.jlkeesh.papertrade.utils.BaseUtils;
 import org.springframework.stereotype.Repository;
 
@@ -15,10 +15,10 @@ import java.util.Map;
  */
 
 @Repository
-public class TreasureSourceRepositoryImpl extends GenericDao<TreasureSource, Long, TreasureSourceCriteria> implements TreasureSourceRepository {
+public class ConsigneeRepositoryImpl extends GenericDao<Consignee, Long, ConsigneeCriteria> implements ConsigneeRepository {
 
     @Override
-    protected void defineCriteriaOnQuerying(TreasureSourceCriteria criteria, List<String> whereCause, Map<String, Object> params, StringBuilder queryBuilder) {
+    protected void defineCriteriaOnQuerying(ConsigneeCriteria criteria, List<String> whereCause, Map<String, Object> params, StringBuilder queryBuilder) {
         if (BaseUtils.isNotEmpty(criteria.getSelfId())) {
             whereCause.add("t.id = :selfId");
             params.put("selfId", criteria.getSelfId());
@@ -31,7 +31,6 @@ public class TreasureSourceRepositoryImpl extends GenericDao<TreasureSource, Lon
             whereCause.add("t.state = :state");
             params.put("state", criteria.getState());
         }
-
         onDefineWhereCause(criteria, whereCause, params, queryBuilder);
     }
 }

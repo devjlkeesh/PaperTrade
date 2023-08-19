@@ -28,7 +28,7 @@ public class CustomerCompanyRepositoryImpl extends GenericDao<CustomerCompany, L
             params.put("name", "%" + criteria.getName().toLowerCase() + "%");
         }
         if (BaseUtils.isNotEmpty(criteria.getCustomerId())) {
-            whereCause.add("t.customer.id = :customerId");
+            whereCause.add("t.customer.id = :countryId");
             params.put("customerId", criteria.getCustomerId());
         }
         if (BaseUtils.isNotEmpty(criteria.getState())) {

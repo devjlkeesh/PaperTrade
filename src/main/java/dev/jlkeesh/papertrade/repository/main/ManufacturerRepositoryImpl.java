@@ -1,8 +1,8 @@
 package dev.jlkeesh.papertrade.repository.main;
 
-import dev.jlkeesh.papertrade.criteria.TreasureSourceCriteria;
+import dev.jlkeesh.papertrade.criteria.ManufacturerCriteria;
 import dev.jlkeesh.papertrade.dao.GenericDao;
-import dev.jlkeesh.papertrade.domains.main.TreasureSource;
+import dev.jlkeesh.papertrade.domains.main.Manufacturer;
 import dev.jlkeesh.papertrade.utils.BaseUtils;
 import org.springframework.stereotype.Repository;
 
@@ -15,10 +15,10 @@ import java.util.Map;
  */
 
 @Repository
-public class TreasureSourceRepositoryImpl extends GenericDao<TreasureSource, Long, TreasureSourceCriteria> implements TreasureSourceRepository {
+public class ManufacturerRepositoryImpl extends GenericDao<Manufacturer, Long, ManufacturerCriteria> implements ManufacturerRepository {
 
     @Override
-    protected void defineCriteriaOnQuerying(TreasureSourceCriteria criteria, List<String> whereCause, Map<String, Object> params, StringBuilder queryBuilder) {
+    protected void defineCriteriaOnQuerying(ManufacturerCriteria criteria, List<String> whereCause, Map<String, Object> params, StringBuilder queryBuilder) {
         if (BaseUtils.isNotEmpty(criteria.getSelfId())) {
             whereCause.add("t.id = :selfId");
             params.put("selfId", criteria.getSelfId());
@@ -31,7 +31,10 @@ public class TreasureSourceRepositoryImpl extends GenericDao<TreasureSource, Lon
             whereCause.add("t.state = :state");
             params.put("state", criteria.getState());
         }
-
+        if (BaseUtils.isNotEmpty(criteria.getCountryId())) {
+            whereCause.add("t.country.id = :countryId");
+            params.put("countryId", criteria.getCountryId());
+        }
         onDefineWhereCause(criteria, whereCause, params, queryBuilder);
     }
 }
