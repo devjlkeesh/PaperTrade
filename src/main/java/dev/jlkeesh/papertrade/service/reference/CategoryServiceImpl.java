@@ -34,25 +34,25 @@ public class CategoryServiceImpl extends AbstractService<CategoryRepository, Cat
     @Override
     public ResponseEntity<Data<List<CategoryDto>>> getAll(@NonNull CategoryCriteria criteria) {
         Long totalCount = repository.getTotalCount(criteria);
-        List<Category> countries = repository.findAll(criteria);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(countries), totalCount), HttpStatus.OK);
+        List<Category> categories = repository.findAll(criteria);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(categories), totalCount), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<CategoryDto>> get(@NonNull Long id) {
-        Category country = repository.find(id).orElseThrow(ResolutionException::new);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(country)), HttpStatus.OK);
+        Category category = repository.find(id).orElseThrow(ResolutionException::new);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(category)), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<Long>> create(@NonNull CategoryCreateDto dto) {
         repository.find(CategoryCriteria.childBuilder().name(dto.name()).build())
-                .ifPresent(country -> {
+                .ifPresent(category -> {
                     throw new BadRequestException(ErrorCode.ALREADY_CREATED);
                 });
-        Category country = mapper.fromCreateDto(dto);
-        repository.save(country);
-        return new ResponseEntity<>(new Data<>(country.getId()), HttpStatus.OK);
+        Category category = mapper.fromCreateDto(dto);
+        repository.save(category);
+        return new ResponseEntity<>(new Data<>(category.getId()), HttpStatus.OK);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class CategoryServiceImpl extends AbstractService<CategoryRepository, Cat
 
     @Override
     public ResponseEntity<Data<Boolean>> update(@NonNull CategoryUpdateDto dto) {
-        Category country = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
-        repository.save(mapper.partialUpdate(dto, country));
+        Category category = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
+        repository.save(mapper.partialUpdate(dto, category));
         return new ResponseEntity<>(new Data<>(true), HttpStatus.OK);
     }
 }

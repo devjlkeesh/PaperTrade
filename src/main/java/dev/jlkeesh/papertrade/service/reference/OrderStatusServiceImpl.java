@@ -34,25 +34,25 @@ public class OrderStatusServiceImpl extends AbstractService<OrderStatusRepositor
     @Override
     public ResponseEntity<Data<List<OrderStatusDto>>> getAll(@NonNull OrderStatusCriteria criteria) {
         Long totalCount = repository.getTotalCount(criteria);
-        List<OrderStatus> countries = repository.findAll(criteria);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(countries), totalCount), HttpStatus.OK);
+        List<OrderStatus> orderStatusList = repository.findAll(criteria);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(orderStatusList), totalCount), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<OrderStatusDto>> get(@NonNull Long id) {
-        OrderStatus country = repository.find(id).orElseThrow(ResolutionException::new);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(country)), HttpStatus.OK);
+        OrderStatus orderStatus = repository.find(id).orElseThrow(ResolutionException::new);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(orderStatus)), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<Long>> create(@NonNull OrderStatusCreateDto dto) {
         repository.find(OrderStatusCriteria.childBuilder().name(dto.name()).build())
-                .ifPresent(country -> {
+                .ifPresent(orderStatus -> {
                     throw new BadRequestException(ErrorCode.ALREADY_CREATED);
                 });
-        OrderStatus country = mapper.fromCreateDto(dto);
-        repository.save(country);
-        return new ResponseEntity<>(new Data<>(country.getId()), HttpStatus.OK);
+        OrderStatus orderStatus = mapper.fromCreateDto(dto);
+        repository.save(orderStatus);
+        return new ResponseEntity<>(new Data<>(orderStatus.getId()), HttpStatus.OK);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class OrderStatusServiceImpl extends AbstractService<OrderStatusRepositor
 
     @Override
     public ResponseEntity<Data<Boolean>> update(@NonNull OrderStatusUpdateDto dto) {
-        OrderStatus country = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
-        repository.save(mapper.partialUpdate(dto, country));
+        OrderStatus orderStatus = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
+        repository.save(mapper.partialUpdate(dto, orderStatus));
         return new ResponseEntity<>(new Data<>(true), HttpStatus.OK);
     }
 }

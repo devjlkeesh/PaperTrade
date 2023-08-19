@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Slf4j
-@RestControllerAdvice("uz.yt.ramsservice")
+@RestControllerAdvice("dev.jlkeesh.papertrade")
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
     private final ApplicationEventPublisher eventPublisher;

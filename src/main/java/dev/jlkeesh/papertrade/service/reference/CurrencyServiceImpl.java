@@ -34,8 +34,8 @@ public class CurrencyServiceImpl extends AbstractService<CurrencyRepository, Cur
     @Override
     public ResponseEntity<Data<List<CurrencyDto>>> getAll(@NonNull CurrencyCriteria criteria) {
         Long totalCount = repository.getTotalCount(criteria);
-        List<Currency> countries = repository.findAll(criteria);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(countries), totalCount), HttpStatus.OK);
+        List<Currency> currencies = repository.findAll(criteria);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(currencies), totalCount), HttpStatus.OK);
     }
 
     @Override

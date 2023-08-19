@@ -34,25 +34,25 @@ public class TradeStatusServiceImpl extends AbstractService<TradeStatusRepositor
     @Override
     public ResponseEntity<Data<List<TradeStatusDto>>> getAll(@NonNull TradeStatusCriteria criteria) {
         Long totalCount = repository.getTotalCount(criteria);
-        List<TradeStatus> countries = repository.findAll(criteria);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(countries), totalCount), HttpStatus.OK);
+        List<TradeStatus> tradeStatusList = repository.findAll(criteria);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(tradeStatusList), totalCount), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<TradeStatusDto>> get(@NonNull Long id) {
-        TradeStatus country = repository.find(id).orElseThrow(ResolutionException::new);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(country)), HttpStatus.OK);
+        TradeStatus tradeStatus = repository.find(id).orElseThrow(ResolutionException::new);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(tradeStatus)), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<Long>> create(@NonNull TradeStatusCreateDto dto) {
         repository.find(TradeStatusCriteria.childBuilder().name(dto.name()).build())
-                .ifPresent(country -> {
+                .ifPresent(tradeStatus -> {
                     throw new BadRequestException(ErrorCode.ALREADY_CREATED);
                 });
-        TradeStatus country = mapper.fromCreateDto(dto);
-        repository.save(country);
-        return new ResponseEntity<>(new Data<>(country.getId()), HttpStatus.OK);
+        TradeStatus tradeStatus = mapper.fromCreateDto(dto);
+        repository.save(tradeStatus);
+        return new ResponseEntity<>(new Data<>(tradeStatus.getId()), HttpStatus.OK);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class TradeStatusServiceImpl extends AbstractService<TradeStatusRepositor
 
     @Override
     public ResponseEntity<Data<Boolean>> update(@NonNull TradeStatusUpdateDto dto) {
-        TradeStatus country = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
-        repository.save(mapper.partialUpdate(dto, country));
+        TradeStatus tradeStatus = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
+        repository.save(mapper.partialUpdate(dto, tradeStatus));
         return new ResponseEntity<>(new Data<>(true), HttpStatus.OK);
     }
 }

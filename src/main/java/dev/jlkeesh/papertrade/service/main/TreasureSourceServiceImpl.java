@@ -35,26 +35,26 @@ public class TreasureSourceServiceImpl extends AbstractService<TreasureSourceRep
     @Override
     public ResponseEntity<Data<List<TreasureSourceDto>>> getAll(@NonNull TreasureSourceCriteria criteria) {
         Long totalCount = repository.getTotalCount(criteria);
-        List<TreasureSource> countries = repository.findAll(criteria);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(countries), totalCount), HttpStatus.OK);
+        List<TreasureSource> treasureSources = repository.findAll(criteria);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(treasureSources), totalCount), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<TreasureSourceDto>> get(@NonNull Long id) {
-        TreasureSource country = repository.find(id).orElseThrow(ResolutionException::new);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(country)), HttpStatus.OK);
+        TreasureSource treasureSource = repository.find(id).orElseThrow(ResolutionException::new);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(treasureSource)), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<Long>> create(@NonNull TreasureSourceCreateDto dto) {
         repository.find(TreasureSourceCriteria.childBuilder().name(dto.name()).build())
-                .ifPresent(country -> {
+                .ifPresent(treasureSource -> {
                     throw new BadRequestException(ErrorCode.ALREADY_CREATED);
                 });
-        TreasureSource country = mapper.fromCreateDto(dto);
-        country.setState(State.ACTIVE);
-        repository.save(country);
-        return new ResponseEntity<>(new Data<>(country.getId()), HttpStatus.OK);
+        TreasureSource treasureSource = mapper.fromCreateDto(dto);
+        treasureSource.setState(State.ACTIVE);
+        repository.save(treasureSource);
+        return new ResponseEntity<>(new Data<>(treasureSource.getId()), HttpStatus.OK);
     }
 
     @Override
@@ -66,8 +66,8 @@ public class TreasureSourceServiceImpl extends AbstractService<TreasureSourceRep
 
     @Override
     public ResponseEntity<Data<Boolean>> update(@NonNull TreasureSourceUpdateDto dto) {
-        TreasureSource country = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
-        repository.save(mapper.partialUpdate(dto, country));
+        TreasureSource treasureSource = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
+        repository.save(mapper.partialUpdate(dto, treasureSource));
         return new ResponseEntity<>(new Data<>(true), HttpStatus.OK);
     }
 }

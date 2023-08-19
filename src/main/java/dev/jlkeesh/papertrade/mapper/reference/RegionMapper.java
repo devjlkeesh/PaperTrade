@@ -5,9 +5,7 @@ import dev.jlkeesh.papertrade.dto.reference.RegionCreateDto;
 import dev.jlkeesh.papertrade.dto.reference.RegionDto;
 import dev.jlkeesh.papertrade.dto.reference.RegionUpdateDto;
 import dev.jlkeesh.papertrade.mapper.BaseMapper;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 /**
  * @author : Elmurodov Javohir
@@ -15,4 +13,8 @@ import org.mapstruct.ReportingPolicy;
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface RegionMapper extends BaseMapper<Region, RegionDto, RegionCreateDto, RegionUpdateDto> {
+    Region toEntity(RegionDto regionDto);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Region partialUpdate(RegionDto regionDto, @MappingTarget Region region);
 }

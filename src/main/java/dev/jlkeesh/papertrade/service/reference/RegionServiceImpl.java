@@ -34,25 +34,25 @@ public class RegionServiceImpl extends AbstractService<RegionRepository, RegionM
     @Override
     public ResponseEntity<Data<List<RegionDto>>> getAll(@NonNull RegionCriteria criteria) {
         Long totalCount = repository.getTotalCount(criteria);
-        List<Region> countries = repository.findAll(criteria);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(countries), totalCount), HttpStatus.OK);
+        List<Region> regions = repository.findAll(criteria);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(regions), totalCount), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<RegionDto>> get(@NonNull Long id) {
-        Region country = repository.find(id).orElseThrow(ResolutionException::new);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(country)), HttpStatus.OK);
+        Region region = repository.find(id).orElseThrow(ResolutionException::new);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(region)), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<Long>> create(@NonNull RegionCreateDto dto) {
         repository.find(RegionCriteria.childBuilder().name(dto.name()).build())
-                .ifPresent(country -> {
+                .ifPresent(region -> {
                     throw new BadRequestException(ErrorCode.ALREADY_CREATED);
                 });
-        Region country = mapper.fromCreateDto(dto);
-        repository.save(country);
-        return new ResponseEntity<>(new Data<>(country.getId()), HttpStatus.OK);
+        Region region = mapper.fromCreateDto(dto);
+        repository.save(region);
+        return new ResponseEntity<>(new Data<>(region.getId()), HttpStatus.OK);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class RegionServiceImpl extends AbstractService<RegionRepository, RegionM
 
     @Override
     public ResponseEntity<Data<Boolean>> update(@NonNull RegionUpdateDto dto) {
-        Region country = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
-        repository.save(mapper.partialUpdate(dto, country));
+        Region region = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
+        repository.save(mapper.partialUpdate(dto, region));
         return new ResponseEntity<>(new Data<>(true), HttpStatus.OK);
     }
 }

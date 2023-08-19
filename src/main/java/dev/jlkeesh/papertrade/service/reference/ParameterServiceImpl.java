@@ -34,25 +34,25 @@ public class ParameterServiceImpl extends AbstractService<ParameterRepository, P
     @Override
     public ResponseEntity<Data<List<ParameterDto>>> getAll(@NonNull ParameterCriteria criteria) {
         Long totalCount = repository.getTotalCount(criteria);
-        List<Parameter> countries = repository.findAll(criteria);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(countries), totalCount), HttpStatus.OK);
+        List<Parameter> parameters = repository.findAll(criteria);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(parameters), totalCount), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<ParameterDto>> get(@NonNull Long id) {
-        Parameter country = repository.find(id).orElseThrow(ResolutionException::new);
-        return new ResponseEntity<>(new Data<>(mapper.toDto(country)), HttpStatus.OK);
+        Parameter parameter = repository.find(id).orElseThrow(ResolutionException::new);
+        return new ResponseEntity<>(new Data<>(mapper.toDto(parameter)), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<Long>> create(@NonNull ParameterCreateDto dto) {
         repository.find(ParameterCriteria.childBuilder().name(dto.name()).build())
-                .ifPresent(country -> {
+                .ifPresent(parameter -> {
                     throw new BadRequestException(ErrorCode.ALREADY_CREATED);
                 });
-        Parameter country = mapper.fromCreateDto(dto);
-        repository.save(country);
-        return new ResponseEntity<>(new Data<>(country.getId()), HttpStatus.OK);
+        Parameter parameter = mapper.fromCreateDto(dto);
+        repository.save(parameter);
+        return new ResponseEntity<>(new Data<>(parameter.getId()), HttpStatus.OK);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class ParameterServiceImpl extends AbstractService<ParameterRepository, P
 
     @Override
     public ResponseEntity<Data<Boolean>> update(@NonNull ParameterUpdateDto dto) {
-        Parameter country = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
-        repository.save(mapper.partialUpdate(dto, country));
+        Parameter parameter = repository.find(dto.id()).orElseThrow(ResourceNotFoundException::new);
+        repository.save(mapper.partialUpdate(dto, parameter));
         return new ResponseEntity<>(new Data<>(true), HttpStatus.OK);
     }
 }
