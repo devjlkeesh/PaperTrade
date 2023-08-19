@@ -6,7 +6,7 @@ spring:
   datasource:
     url: 'jdbc:postgresql://localhost:5432/paper'
     username: postgres
-    password: 123
+    password: 1234
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
@@ -16,6 +16,10 @@ spring:
       hibernate:
         format_sql: true
 
+springdoc:
+  swagger-ui:
+    doc-expansion: none
+    tags-sorter: alpha
 
 telegram:
   alarmOnError: false

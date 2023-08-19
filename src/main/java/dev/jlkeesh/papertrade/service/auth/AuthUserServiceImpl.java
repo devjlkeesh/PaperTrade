@@ -64,7 +64,7 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
             throw new AuthorizedException(ErrorCode.AUTH_BAD_CREDENTIALS);
 
         TokenDto access = jwtUtils.generateToken(authUser.getId(), Type.ACCESS);
-        TokenDto refresh = jwtUtils.generateToken(authUser.getId(), Type.ACCESS);
+        TokenDto refresh = jwtUtils.generateToken(authUser.getId(), Type.REFRESH);
 
         authUser.setLastLoginAt(LocalDateTime.now());
         authUser.setLastActionedAt(LocalDateTime.now());
