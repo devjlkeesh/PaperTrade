@@ -11,6 +11,7 @@ public final class ErrorCode {
     public static final String INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR ";
     public static final String NOT_FOUND = "NOT_FOUND";
     public static final String ALREADY_CREATED = "ALREADY_CREATED";
+    public static final String BAR_CODE_ALREADY_CREATED = "BAR_CODE_ALREADY_CREATED";
     public static final String RESOURCE_EXISTS = "RESOURCE_EXISTS";
     public static final String USER_NAME_ALREADY_TAKEN = "USER_NAME_ALREADY_TAKEN";
     public static final String PHONE_NUMBER_ALREADY_TAKEN = "PHONE_NUMBER_ALREADY_TAKEN";

@@ -1,6 +1,5 @@
 package dev.jlkeesh.papertrade.criteria;
 
-import dev.jlkeesh.papertrade.enums.State;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

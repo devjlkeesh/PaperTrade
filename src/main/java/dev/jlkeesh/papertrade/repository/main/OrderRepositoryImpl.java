@@ -1,6 +1,5 @@
 package dev.jlkeesh.papertrade.repository.main;
 
-import dev.jlkeesh.papertrade.criteria.ConsigneeCriteria;
 import dev.jlkeesh.papertrade.criteria.OrderCriteria;
 import dev.jlkeesh.papertrade.dao.GenericDao;
 import dev.jlkeesh.papertrade.domains.main.Order;

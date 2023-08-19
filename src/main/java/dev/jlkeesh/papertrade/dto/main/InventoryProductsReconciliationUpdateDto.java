@@ -1,5 +1,6 @@
 package dev.jlkeesh.papertrade.dto.main;
 
+import dev.jlkeesh.papertrade.domains.main.InventoryProductsReconciliation;
 import dev.jlkeesh.papertrade.dto.Dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,20 +10,22 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * DTO for {@link dev.jlkeesh.papertrade.domains.main.TreasureReconciliation}
+ * DTO for {@link InventoryProductsReconciliation}
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TreasureReconciliationUpdateDto implements Dto {
+public class InventoryProductsReconciliationUpdateDto implements Dto {
     @NotNull
     private Long id;
+    private Long inWeight;
     private Double inSum;
+    private Long remWeight;
     private Double remSum;
-    private Double outSum;
-    private String note;
+    private Long sellWeight;
+    private Double sellSum;
+    private Long defectWeight;
+    private Double defectSum;
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
-    private Long treasureSourceId;
-    private Long currencyId;
 }
