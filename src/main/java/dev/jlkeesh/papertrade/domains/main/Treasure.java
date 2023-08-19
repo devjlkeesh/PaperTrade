@@ -9,42 +9,39 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 /**
  * @author : Elmurodov Javohir
- * @since : 19/08/23 / 08:49
+ * @since : 19/08/23 / 21:34
  */
 
-@Entity
 @Getter
 @Setter
-public class TreasureReconciliation extends Auditable {
+@Entity
+public class Treasure extends Auditable {
 
     @OneToOne
     @JoinColumn(nullable = false, name = "treasure_source_id")
     private TreasureSource treasureSource;
 
-    @Column(nullable = false, columnDefinition = "numeric(20, 2)")
+    @Column(nullable = false, columnDefinition = "numeric(20 , 2)")
     private Double inSum;
 
-    @Column(nullable = false, columnDefinition = "numeric(20, 2)")
+    @Column(nullable = false, columnDefinition = "numeric(20 , 2)")
     private Double remSum;
 
-    @Column(nullable = false, columnDefinition = "numeric(20, 2)")
+    @Column(nullable = false, columnDefinition = "numeric(20 , 2)")
     private Double outSum;
 
     @OneToOne
-    @JoinColumn(nullable = false, name = "currency_id")
+    @JoinColumn(nullable = false, name = "curreny_id")
     private Currency currency;
 
-    @Column(nullable = false)
-    private String note;
+  /*  CustomerP in_customer_payment_id int(9) [ref:>customer_payments.id]
+    out_expense_id
 
-    @Column(nullable = false)
-    private LocalDateTime beginDate;
+    int(9) [ref:>expenses.id]
 
-    @Column(nullable = false)
-    private LocalDateTime endDate;
+    note nvarchar(200)
 
+    register_date timestamp*/
 }

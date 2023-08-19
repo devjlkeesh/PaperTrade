@@ -1,8 +1,6 @@
 package dev.jlkeesh.papertrade.dto.main;
 
-import dev.jlkeesh.papertrade.domains.main.TreasureReconciliation;
 import dev.jlkeesh.papertrade.dto.Dto;
-import dev.jlkeesh.papertrade.dto.reference.CurrencyDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,22 +8,26 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * DTO for {@link TreasureReconciliation}
+ * DTO for {@link dev.jlkeesh.papertrade.domains.main.InventoryProductsReconciliation}
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TreasureReconciliationDto implements Dto {
+public class InventoryProductsReconciliationDto implements Dto {
     private Long id;
+    private InventoryDto inventory;
+    private ProductDto product;
+    private ManufacturerDto manufacturer;
+    private Long inWeight;
     private Double inSum;
+    private Long remWeight;
     private Double remSum;
-    private Double outSum;
-    private CurrencyDto currency;
-    private TreasureSourceDto treasureSource;
-    private String note;
+    private Long sellWeight;
+    private Double sellSum;
+    private Long defectWeight;
+    private Double defectSum;
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
-
     private LocalDateTime createdAt;
     private Long createdBy;
     private LocalDateTime updatedAt;
