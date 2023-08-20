@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InventoryProductsReconciliationUpdateDto implements Dto {
+public class InventoryProductReconciliationUpdateDto implements Dto {
     @NotNull
     private Long id;
     private Long inWeight;
