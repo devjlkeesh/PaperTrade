@@ -1,4 +1,4 @@
-package dev.jlkeesh.papertrade.controller.main;
+package dev.jlkeesh.papertrade.controller.reference;
 
 import dev.jlkeesh.papertrade.controller.AbstractController;
 import dev.jlkeesh.papertrade.criteria.ExpenseCategoryCriteria;
