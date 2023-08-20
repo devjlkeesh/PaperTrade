@@ -5,9 +5,7 @@ import dev.jlkeesh.papertrade.dto.main.OrderWagonCreateDto;
 import dev.jlkeesh.papertrade.dto.main.OrderWagonDto;
 import dev.jlkeesh.papertrade.dto.main.OrderWagonUpdateDto;
 import dev.jlkeesh.papertrade.mapper.BaseMapper;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 /**
  * @author : Suhrob Karimov
@@ -16,4 +14,8 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface OrderWagonMapper extends BaseMapper<OrderWagon, OrderWagonDto, OrderWagonCreateDto, OrderWagonUpdateDto> {
+    OrderWagon toEntity(OrderWagonDto orderWagonDto);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    OrderWagon partialUpdate(OrderWagonDto orderWagonDto, @MappingTarget OrderWagon orderWagon);
 }

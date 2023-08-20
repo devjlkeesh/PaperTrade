@@ -12,4 +12,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TreasuryRepositoryImpl extends GenericDao<Treasury, Long, TreasuryCriteria> implements TreasuryRepository {
+
 }

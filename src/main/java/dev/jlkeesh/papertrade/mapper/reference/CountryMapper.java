@@ -5,9 +5,7 @@ import dev.jlkeesh.papertrade.dto.reference.CountryCreateDto;
 import dev.jlkeesh.papertrade.dto.reference.CountryDto;
 import dev.jlkeesh.papertrade.dto.reference.CountryUpdateDto;
 import dev.jlkeesh.papertrade.mapper.BaseMapper;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 /**
  * @author : Elmurodov Javohir
@@ -15,4 +13,8 @@ import org.mapstruct.ReportingPolicy;
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface CountryMapper extends BaseMapper<Country, CountryDto, CountryCreateDto, CountryUpdateDto> {
+    Country toEntity(CountryDto countryDto);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Country partialUpdate(CountryDto countryDto, @MappingTarget Country country);
 }

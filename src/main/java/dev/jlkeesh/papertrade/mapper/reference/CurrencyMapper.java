@@ -5,9 +5,7 @@ import dev.jlkeesh.papertrade.dto.reference.CurrencyCreateDto;
 import dev.jlkeesh.papertrade.dto.reference.CurrencyDto;
 import dev.jlkeesh.papertrade.dto.reference.CurrencyUpdateDto;
 import dev.jlkeesh.papertrade.mapper.BaseMapper;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 /**
  * @author : Elmurodov Javohir
@@ -15,4 +13,8 @@ import org.mapstruct.ReportingPolicy;
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface CurrencyMapper extends BaseMapper<Currency, CurrencyDto, CurrencyCreateDto, CurrencyUpdateDto> {
+    Currency toEntity(CurrencyDto currencyDto);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Currency partialUpdate(CurrencyDto currencyDto, @MappingTarget Currency currency);
 }
