@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InventoryProductsReconciliationDto implements Dto {
+public class InventoryProductReconciliationDto implements Dto {
     private Long id;
     private InventoryDto inventory;
     private ProductDto product;

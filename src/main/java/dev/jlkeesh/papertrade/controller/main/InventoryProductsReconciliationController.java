@@ -2,9 +2,9 @@ package dev.jlkeesh.papertrade.controller.main;
 
 import dev.jlkeesh.papertrade.controller.AbstractController;
 import dev.jlkeesh.papertrade.criteria.InventoryProductsReconciliationCriteria;
-import dev.jlkeesh.papertrade.dto.main.InventoryProductsReconciliationCreateDto;
-import dev.jlkeesh.papertrade.dto.main.InventoryProductsReconciliationDto;
-import dev.jlkeesh.papertrade.dto.main.InventoryProductsReconciliationUpdateDto;
+import dev.jlkeesh.papertrade.dto.main.InventoryProductReconciliationCreateDto;
+import dev.jlkeesh.papertrade.dto.main.InventoryProductReconciliationDto;
+import dev.jlkeesh.papertrade.dto.main.InventoryProductReconciliationUpdateDto;
 import dev.jlkeesh.papertrade.dto.response.Data;
 import dev.jlkeesh.papertrade.service.main.InventoryProductsReconciliationService;
 import jakarta.validation.Valid;
@@ -26,17 +26,17 @@ public class InventoryProductsReconciliationController extends AbstractControlle
     }
 
     @GetMapping(PATH + "/inventory-products-reconciliation/{id}")
-    public ResponseEntity<Data<InventoryProductsReconciliationDto>> get(@PathVariable Long id) {
+    public ResponseEntity<Data<InventoryProductReconciliationDto>> get(@PathVariable Long id) {
         return service.get(id);
     }
 
     @GetMapping(PATH + "/inventory-products-reconciliation")
-    public ResponseEntity<Data<List<InventoryProductsReconciliationDto>>> getAll(InventoryProductsReconciliationCriteria criteria) {
+    public ResponseEntity<Data<List<InventoryProductReconciliationDto>>> getAll(InventoryProductsReconciliationCriteria criteria) {
         return service.getAll(criteria);
     }
 
     @PostMapping(PATH + "/inventory-products-reconciliation")
-    public ResponseEntity<Data<Long>> create(@NonNull @Valid @RequestBody InventoryProductsReconciliationCreateDto dto) {
+    public ResponseEntity<Data<Long>> create(@NonNull @Valid @RequestBody InventoryProductReconciliationCreateDto dto) {
         return service.create(dto);
     }
 
@@ -47,7 +47,7 @@ public class InventoryProductsReconciliationController extends AbstractControlle
 
 
     @PutMapping(PATH + "/inventory-products-reconciliation")
-    public ResponseEntity<Data<Boolean>> update(@NonNull @Valid @RequestBody InventoryProductsReconciliationUpdateDto dto) {
+    public ResponseEntity<Data<Boolean>> update(@NonNull @Valid @RequestBody InventoryProductReconciliationUpdateDto dto) {
         return service.update(dto);
     }
 }

@@ -9,6 +9,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
+/**
+ * @author : Suhrob Karimov
+ * @since : 20/08/23 - 11:06
+ */
+
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ManufacturerMapper extends BaseMapper<Manufacturer, ManufacturerDto,ManufacturerCreateDto, ManufacturerUpdateDto> {
 }

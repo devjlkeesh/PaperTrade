@@ -5,9 +5,9 @@ import dev.jlkeesh.papertrade.domains.main.Inventory;
 import dev.jlkeesh.papertrade.domains.main.InventoryProductsReconciliation;
 import dev.jlkeesh.papertrade.domains.main.Manufacturer;
 import dev.jlkeesh.papertrade.domains.main.Product;
-import dev.jlkeesh.papertrade.dto.main.InventoryProductsReconciliationCreateDto;
-import dev.jlkeesh.papertrade.dto.main.InventoryProductsReconciliationDto;
-import dev.jlkeesh.papertrade.dto.main.InventoryProductsReconciliationUpdateDto;
+import dev.jlkeesh.papertrade.dto.main.InventoryProductReconciliationCreateDto;
+import dev.jlkeesh.papertrade.dto.main.InventoryProductReconciliationDto;
+import dev.jlkeesh.papertrade.dto.main.InventoryProductReconciliationUpdateDto;
 import dev.jlkeesh.papertrade.dto.response.Data;
 import dev.jlkeesh.papertrade.exceptions.ResourceNotFoundException;
 import dev.jlkeesh.papertrade.mapper.main.InventoryProductsReconciliationMapper;
@@ -44,20 +44,20 @@ public class InventoryProductsReconciliationServiceImpl extends AbstractService<
     }
 
     @Override
-    public ResponseEntity<Data<List<InventoryProductsReconciliationDto>>> getAll(@NonNull InventoryProductsReconciliationCriteria criteria) {
+    public ResponseEntity<Data<List<InventoryProductReconciliationDto>>> getAll(@NonNull InventoryProductsReconciliationCriteria criteria) {
         Long totalCount = repository.getTotalCount(criteria);
         List<InventoryProductsReconciliation> inventoryProductsReconciliations = repository.findAll(criteria);
         return new ResponseEntity<>(new Data<>(mapper.toDto(inventoryProductsReconciliations), totalCount), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Data<InventoryProductsReconciliationDto>> get(@NonNull Long id) {
+    public ResponseEntity<Data<InventoryProductReconciliationDto>> get(@NonNull Long id) {
         InventoryProductsReconciliation inventoryProductsReconciliation = repository.find(id).orElseThrow(ResolutionException::new);
         return new ResponseEntity<>(new Data<>(mapper.toDto(inventoryProductsReconciliation)), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Data<Long>> create(@NonNull InventoryProductsReconciliationCreateDto dto) {
+    public ResponseEntity<Data<Long>> create(@NonNull InventoryProductReconciliationCreateDto dto) {
         // TODO: 19/08/23 any check ?
         Product product = productRepository.find(dto.getProductId()).orElseThrow(ResourceNotFoundException::new);
         Inventory inventory = inventoryRepository.find(dto.getInventoryId()).orElseThrow(ResourceNotFoundException::new);
@@ -78,7 +78,7 @@ public class InventoryProductsReconciliationServiceImpl extends AbstractService<
     }
 
     @Override
-    public ResponseEntity<Data<Boolean>> update(@NonNull InventoryProductsReconciliationUpdateDto dto) {
+    public ResponseEntity<Data<Boolean>> update(@NonNull InventoryProductReconciliationUpdateDto dto) {
         InventoryProductsReconciliation inventoryProductsReconciliation = repository.find(dto.getId()).orElseThrow(ResourceNotFoundException::new);
         repository.save(mapper.partialUpdate(dto, inventoryProductsReconciliation));
         return new ResponseEntity<>(new Data<>(true), HttpStatus.OK);
