@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * @author : Elmurodov Javohir
@@ -39,8 +39,8 @@ public class TreasureReconciliation extends Auditable {
     private String note;
 
     @Column(nullable = false)
-    private LocalDateTime beginDate;
+    private LocalDate beginDate;
 
     @Column(nullable = false)
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 }

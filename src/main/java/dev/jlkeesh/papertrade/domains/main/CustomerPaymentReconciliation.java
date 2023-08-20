@@ -2,7 +2,6 @@ package dev.jlkeesh.papertrade.domains.main;
 
 import dev.jlkeesh.papertrade.domains.Auditable;
 import dev.jlkeesh.papertrade.domains.reference.Currency;
-import dev.jlkeesh.papertrade.enums.PaymentType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,34 +11,21 @@ import java.time.LocalDate;
 
 /**
  * @author : Suhrob Karimov
- * @since : 19/08/2023 - 22:38
+ * @since : 20/08/23 - 09:24
  */
 
 @Getter
 @Setter
 @Entity
-@Table(name = "CUSTOMER_PAYMENT")
-public class CustomerPayment extends Auditable {
+@Table(name = "CUSTOMER_PAYMENT_RECONCILIATIONS")
+public class CustomerPaymentReconciliation extends Auditable {
 
     @ManyToOne(targetEntity = Customer.class, fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "CUSTOMER_ID")
     private Customer customer;
 
-    @ManyToOne(targetEntity = CustomerCompany.class, fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "CUSTOMER_COMPANY_ID")
-    private CustomerCompany customerCompany;
-
-    @ManyToOne(targetEntity = Trade.class, fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "TRADE_ID")
-    private Trade trade;
-
-    @ManyToOne(targetEntity = Consignee.class, fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "CONSIGNEE_ID")
-    private Consignee consignee;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private PaymentType paymentType;
+    @Column(nullable = false, columnDefinition = "numeric(20, 2)")
+    private BigDecimal deposit;
 
     @Column(nullable = false, columnDefinition = "numeric(20, 2)")
     private BigDecimal credit;
@@ -52,6 +38,9 @@ public class CustomerPayment extends Auditable {
     private Currency otherCurrency;
 
     @Column(nullable = false, columnDefinition = "numeric(20, 2)")
+    private BigDecimal otherDeposit;
+
+    @Column(nullable = false, columnDefinition = "numeric(20, 2)")
     private BigDecimal otherCredit;
 
     @Column(nullable = false, columnDefinition = "numeric(20, 2)")
@@ -61,5 +50,8 @@ public class CustomerPayment extends Auditable {
     private String note;
 
     @Column(nullable = false)
-    private LocalDate registerDate;
+    private LocalDate beginDate;
+
+    @Column(nullable = false)
+    private LocalDate endDate;
 }

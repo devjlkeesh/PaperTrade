@@ -8,7 +8,7 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * @author : Elmurodov Javohir
@@ -57,8 +57,8 @@ public class InventoryProductsReconciliation extends Auditable {
     private Double defectSum;
 
     @Column(nullable = false)
-    private LocalDateTime beginDate;
+    private LocalDate beginDate;
 
     @Column(nullable = false)
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 }

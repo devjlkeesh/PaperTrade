@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * @author : Suhrob Karimov
@@ -49,5 +49,5 @@ public class Treasury extends Auditable {
     private String note;
 
     @Column(nullable = false)
-    private LocalDateTime registerDate;
+    private LocalDate registerDate;
 }

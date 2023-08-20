@@ -8,7 +8,7 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * @author : Elmurodov Javohir
@@ -68,6 +68,5 @@ public class InventoryProduct extends Auditable {
     private Double defectPrice;
 
     @Column(nullable = false)
-    private LocalDateTime registerDate;
-
+    private LocalDate registerDate;
 }
